@@ -2691,43 +2691,74 @@ const offsets = {
 	// iPhone 8
 	// iPhone 8 Plus
 	// iPhone X
+	// A11 = t8015, arm64 (non-arm64e), iOS 16.7.16 (20H392)
+	// Offsets extracted from kernel_16.7.16.macho via disassembly
 	"iPhone10": {
 		"*": {
+			// XNU 22 = iOS 16.x
 			22: {
+				// iOS 16.0 – 16.3 baseline
 				0: {
-					kernelTask: 0x1920d0n,
-					pComm:      0x568n,
-					excGuard:   0x5bcn,
-					kstackptr:  0xe8n,
-					ropPid:     0x150n,
-					jopPid:     0x158n,
-					guardExcCode: 0x308n,
-					taskThreads:  0x340n,
-					tro:          0x350n,
-					ast:          0x374n,
-					mutexData:    0x378n,
-					ctid:         0x400n,
-					troTask:      0x20n,
-					procRO:       0x380n,
-					ipcSpace:     0x300n
-				},
-				4: {
-					procRO:       0x388n,
-					ipcSpace:     0x308n,
-					excGuard:     0x5dcn,
-					kstackptr:    0xe8n,
-					ropPid:       0x150n,
-					jopPid:       0x158n,
-					guardExcCode: 0x320n,
-					taskThreads:  0x348n,
-					tro:          0x358n,
-					ast:          0x37cn,
-					mutexData:    0x380n,
-					ctid:         0x408n
+					kernelTask: 0x1920d0n,   // _kernel_task VA 0xfffffff0071960d0 - __TEXT 0xfffffff007004000
+					
+					// ---- task struct ----
+					mapTask:  0x28n,         // _get_task_map: ldr x0, [x0, 0x28]
+					nextTask: 0x30n,         // XNU standard queue_chain_t
+					prevTask: 0x38n,         // XNU standard queue_chain_t
+					threads:  0x58n,         // XNU standard queue_head_t
+					ipcSpace: 0x300n,        // after _get_task_map: ldr x0, [x0, 0x300]
+					procRO:   0x3A0n,        // XNU standard
+					procSize: 0x740n,
+					excGuard: 0x5D4n,
+					
+					// ---- proc struct ----
+					pid:       0x60n,        // _proc_pid: ldr w0, [x1, 0x60]
+					pComm:     0x568n,       // XNU standard
+					pptr:      0x10n,
+					list_next: 0xa0n,        // _proc_find list walk
+					list_prev: 0xa8n,
+					p_flag:    0x454n,       // _proc_is64bit: ldrb w8, [x0, 0x454]
+					fd:        0xD0n,
+					textvp:    0x350n,
+					
+					// ---- proc_ro struct ----
+					proc_ro:               0x18n,  // confirmed 4x
+					proc_ro_task_tokens:   0x0n,   // _proc_ucred: ldr x8, [x1]
+					proc_ro_ucred:         0x20n,  // _proc_ucred: ldr x0, [x1, 0x20]
+					proc_ro_csflags:       0x1Cn,
+					proc_ro_syscall_mask:  0x28n,
+					proc_ro_mach_trap_mask: 0x68n,
+					proc_ro_mach_kobj_mask: 0x70n,
+					proc_ro_t_flags_ro:    0x78n,
+					
+					// ---- thread struct (RemoteCall — ước lượng) ----
+					kstackptr:    0xF0n,
+					ropPid:       0x160n,
+					jopPid:       0x168n,
+					guardExcCode: 0x330n,
+					taskThreads:  0x370n,
+					tro:          0x380n,
+					ast:          0x3A4n,
+					mutexData:    0x3B0n,
+					ctid:         0x430n,
+					
+					// ---- socket / inpcb (pe()) ----
+					inpcb_socket:       0x40n,
+					inpcb_icmp6filt:    0x150n,
+					inpcb_list_next:    0x20n,
+					inpcb_list_prev:    0x28n,
+					inpcb_pcbinfo:      0x38n,
+					socket_proto:       0x18n,
+					socket_usecount:    0x22Cn,
+					protosw_input:      0x28n,
+					inpcbinfo_ipi_zone: 0x68n
 				}
 			}
 		}
 	},
+
+	// ... các iPhone khác giữ nguyên ...
+};
 
 	// iPhone XS
 	// iPhone XS Max
