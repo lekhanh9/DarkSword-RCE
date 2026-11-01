@@ -2695,7 +2695,7 @@ const offsets = {
 		"*": {
 			22: {
 				0: {
-					kernelTask: 0x0n,
+					kernelTask: 0x1920d0n,
 					pComm:      0x568n,
 					excGuard:   0x5bcn,
 					kstackptr:  0xe8n,
