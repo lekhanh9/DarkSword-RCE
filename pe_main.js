@@ -2688,6 +2688,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   offsets: () => (/* binding */ offsets)
 /* harmony export */ });
 const offsets = {
+	// iPhone 8
+	// iPhone 8 Plus
+	// iPhone X
+	"iPhone10": {
+		"*": {
+			22: {
+				0: {
+					kernelTask: 0x0n,
+					pComm:      0x568n,
+					excGuard:   0x5bcn,
+					kstackptr:  0xe8n,
+					ropPid:     0x150n,
+					jopPid:     0x158n,
+					guardExcCode: 0x308n,
+					taskThreads:  0x340n,
+					tro:          0x350n,
+					ast:          0x374n,
+					mutexData:    0x378n,
+					ctid:         0x400n,
+					troTask:      0x20n,
+					procRO:       0x380n,
+					ipcSpace:     0x300n
+				},
+				4: {
+					procRO:       0x388n,
+					ipcSpace:     0x308n,
+					excGuard:     0x5dcn,
+					kstackptr:    0xe8n,
+					ropPid:       0x150n,
+					jopPid:       0x158n,
+					guardExcCode: 0x320n,
+					taskThreads:  0x348n,
+					tro:          0x358n,
+					ast:          0x37cn,
+					mutexData:    0x380n,
+					ctid:         0x408n
+				}
+			}
+		}
+	},
+
 	// iPhone XS
 	// iPhone XS Max
 	// iPhone XS Max Global
